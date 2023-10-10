@@ -8,17 +8,17 @@ use app\core\Request;
 
 class SiteController  extends Controller
 {
-    public static function home()
+    public  function home()
     {
         $params =[
             "name" => "Sokol"
         ];
-        return self::render('home', $params);
+        return $this->render('home', $params);
     }
 
-    public static function contact()
+    public  function contact()
     {
-        return self::render('contact');
+        return $this->render('contact');
     }
 
     public static function handleContact(Request $request)

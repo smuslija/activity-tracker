@@ -3,8 +3,7 @@
 namespace app\core;
 
 class Router
-{
-
+{   
     protected array $routes = [];
 
     public Request $request;
@@ -21,13 +20,18 @@ class Router
         $this->routes['get'][$path] = $callback;
     }
 
+    public function post($path, $callback)
+    {
+        $this->routes['post'][$path] = $callback;
+    }
+
     public function resolve()
     {
-        $path = $this->request->getPath();
-        $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path];
+        $path =  $this->request->getPath();
+        $method = $this->request->method();
+        $callback = $this->routes[$method][$path] ?? false;
         
-        if($callback === null)
+        if($callback === false)
         {
             $this->response->setStatusCode(404);
             return $this->renderView('_404');
@@ -38,10 +42,12 @@ class Router
             return $this->renderView($callback);
         }
 
-       /*  if(is_array($callback))
+        //Creteing instance of Controller
+        if(is_array($callback))
         {
-            $callback[0] = new $callback[0]();
-        } */
+            Application::$app->controller = new $callback[0]();
+            $callback[0] = Application::$app->controller;
+        } 
         return call_user_func($callback, $this->request);
     }
 
@@ -66,8 +72,9 @@ class Router
 
     public function layoutContent()
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
         return ob_get_clean();
     }
 }

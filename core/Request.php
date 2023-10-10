@@ -17,16 +17,32 @@ class Request
         return substr($path, 0 ,$position);
     }
 
-    public static function getMethod()
+    public static function method()
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
-    public static function getBody()
+    public function isGet()
+    {
+        if ($this->method() === 'get')
+        {
+            return true;
+        }
+    }
+    
+    public function isPost()
+    {
+        if ($this->method() === 'post')
+        {
+            return true;
+        }
+    }
+
+    public  function getBody()
     {
         $body = [];
 
-        if(self::getMethod() === 'get')
+        if($this->method() === 'get')
         {   
             //iterate the superglobal GET
             foreach($_GET as $key => $value)
@@ -36,7 +52,7 @@ class Request
             }
         }
 
-        if(self::getMethod() == 'post')
+        if($this->method() == 'post')
         {
              //iterate the superglobal POST
              foreach($_POST as $key => $value)

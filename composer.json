@@ -1,8 +1,8 @@
 {
-    "name": "sokol/activity-tracker",
+    "name": "sokol/mvc",
     "authors": [
         {
-            "name": "sokolj.muslija"
+            "name": "sokol"
         }
     ],
     "autoload": {
