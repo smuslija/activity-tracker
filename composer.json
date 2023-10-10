@@ -1,0 +1,14 @@
+{
+    "name": "sokol/activity-tracker",
+    "authors": [
+        {
+            "name": "sokolj.muslija"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\" : "./"
+        }
+    },
+    "require": {}
+}
