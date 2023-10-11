@@ -25,7 +25,6 @@ class SiteController  extends Controller
     {
         //access request instance
         $body = $request->getBody();
-        var_dump($body);
         return('Handle submitting data from controller');
     }
 }
