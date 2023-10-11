@@ -29,6 +29,7 @@ abstract class Model
     {
         foreach($this->rules() as $attribute =>$rules)
         {
+            //$value is = to the value of the Model properties
             $value = $this->{$attribute};
             foreach($rules as $rule)
             {
