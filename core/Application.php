@@ -28,7 +28,7 @@ class Application
         echo($this->router->resolve());
     }
 
-    public function getController()
+/*     public function getController()
     {
         return $this->controller;
     }
@@ -36,5 +36,5 @@ class Application
     public function setController(Controller $controller)
     {
         $this->controller = $controller;
-    }
+    } */
 }

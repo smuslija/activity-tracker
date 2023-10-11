@@ -4,26 +4,42 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\Request;
+use app\models\RegisterModel;
 
 class AuthController extends  Controller
 {
     
     public  function login(Request $request)
     {
-        $this->setLayout('auth');
+        
         if($request->isPost()){
             return 'Handle submitted login data';
         }
+        $this->setLayout('auth');
         return $this->render('login');
     }
 
     public function register(Request $request)
     {   
-        $this->setLayout('auth');
+        $registerModel = new RegisterModel();
         if($request->isPost()){
-            return 'Handle submitted register data';
+            $registerModel->loadData($request->getBody());
+            /* 
+            echo"<pre>";
+            var_dump($registerModel);
+            echo"<pre>";
+             */
+            if($registerModel->validate() && $registerModel->register()){
+                return "Success registeration";
+            }
+            return $this->render('register', [
+                'model' => $registerModel
+            ]);
         }
-        return $this->render('register');
+        $this->setLayout('auth');
+        return $this->render('register', [
+            'model' => $registerModel
+        ]);
     }
 
 }

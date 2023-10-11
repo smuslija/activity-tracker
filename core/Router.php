@@ -42,7 +42,7 @@ class Router
             return $this->renderView($callback);
         }
 
-        //Creteing instance of Controller
+        //Createing instance of Controller
         if(is_array($callback))
         {
             Application::$app->controller = new $callback[0]();
